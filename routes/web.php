@@ -37,5 +37,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies.index')->middleware('auth');
+Route::post('/historical', [CurrencyController::class, 'historical'])->name('currencies.historical');
 
 require __DIR__.'/auth.php';

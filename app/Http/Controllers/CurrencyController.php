@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Http;
  */
 class CurrencyController extends Controller
 {
+    /**
+     * Route for /currencies
+     */
     public function index()
     {
         return view('index', ['currencyCodes' => CurrencyCode::getCurrencyCodes()]);
@@ -18,6 +21,8 @@ class CurrencyController extends Controller
 
     /**
      * Get list of supported currencies
+     * 
+     * The route goes through API middleware so it needs to apply route as /api/routes
      */
     public function list(Request $request)
     {
