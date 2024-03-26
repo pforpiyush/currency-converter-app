@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.currency-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+.currency-list {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin: 10px;
+  }
