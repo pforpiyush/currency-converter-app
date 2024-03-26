@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\HistoryRateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies.index')->middleware('auth');
-Route::post('/historical', [CurrencyController::class, 'historical'])->name('currencies.historical');
+Route::post('/currencies', [CurrencyController::class, 'list'])->name('currencies.list');
+
+Route::get('/historical-rates', [HistoryRateController::class, 'index'])->name('currencies.index')->middleware('auth');
+Route::post('/historical-rates', [HistoryRateController::class, 'store'])->name('currencies.historical-rates')->middleware('auth');
 
 require __DIR__.'/auth.php';

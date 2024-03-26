@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Bus;
 
 use App\Http\Controllers\CurrencyController;
 
@@ -20,4 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/currencies', [CurrencyController::class, 'list'])->name('currencies.list');
+// Get progress of batch and show it to the user
+Route::get('/batch/{batchId}', function (string $batchId) {
+    return json_encode(Bus::findBatch($batchId)->progress());
+})->name('batch');
