@@ -41,7 +41,7 @@ export const useCurrencyStore = defineStore({
             this.error = null;
             this.exchangeRates = null;
 
-            await axios.post('/currencies', { selectedValue: codes.toString() })
+            await axios.post('/api/currencies', { selectedValue: codes.toString() })
             .then(response => {
                 this.exchangeRates = response.data['data'];
             })
