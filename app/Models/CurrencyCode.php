@@ -16,8 +16,15 @@ class CurrencyCode extends Model
 
     protected $table = 'currency_codes';
 
-    public static function getCurrencyCodes()
+    /**
+     * Get list of all currency codes
+     */
+    public static function getCurrencyCodes(): string
     {
+        /**
+         * The value has been cached forever with an assumption that the currency codes will never change.
+         * An observer can be created to clear the cache if ever any currency code changes or new code is added.
+         */
         return Cache::rememberForever('currency_codes', function() {
             return json_encode(CurrencyCodeResource::collection(self::all()));
         });
