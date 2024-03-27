@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\CurrencyCode;
-
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -28,12 +28,17 @@ class CurrencyController extends Controller
     {
         $selectedValues = $request->input('selectedValue');
 
-        $response = Http::get(env('CURRENCY_LAYER_LATEST_RATES_URL'), [
-            'apikey' => env('CURRENCY_LAYER_API_KEY'),
-            'currencies' => $selectedValues,
-        ]);
-        $currencies = $response->json();
-
-        return response()->json($currencies);
+        try {
+            $response = Http::get(env('CURRENCY_LAYER_LATEST_RATES_URL'), [
+                'apikey' => env('CURRENCY_LAYER_API_KEY'),
+                'currencies' => $selectedValues,
+            ]);
+            $currencies = $response->json();
+    
+            return $response->json($currencies);
+        } catch(Exception $e) {
+            report($e); 
+            return Http::response($e->getMessage(), $e->getCode());    
+        }
     }
 }

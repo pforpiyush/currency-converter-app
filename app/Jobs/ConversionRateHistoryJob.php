@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Exception;
 
 class ConversionRateHistoryJob implements ShouldQueue, ShouldBeUnique
 {
@@ -43,12 +44,17 @@ class ConversionRateHistoryJob implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): void
     {
-        $response = Http::get(env('CURRENCY_LAYER_HISTORY_RATES_URL'), [
-            'apikey' => env('CURRENCY_LAYER_API_KEY'),
-            'currencies' => $this->currencyCode,
-            'date' => $this->dates,
-        ]);
-        $data = $response->json()['data'];
+        try {
+            $response = Http::get(env('CURRENCY_LAYER_HISTORY_RATES_URL'), [
+                'apikey' => env('CURRENCY_LAYER_API_KEY'),
+                'currencies' => $this->currencyCode,
+                'date' => $this->dates,
+            ]);
+            
+            $data = $response->json()['data'];
+        } catch (Exception $e) {
+            report($e);
+        }
 
         $historicalRate = new HistoryRate();
         $historicalRate->exchange_date = $this->dates;
