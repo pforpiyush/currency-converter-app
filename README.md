@@ -42,6 +42,8 @@ I created a basic UI and provided limited components in front-end. If the curren
 
 The endpoint for the live currency rates app is `{url}/currencies` and for the conversion history rates is `{url}/historical-rates`. There is no navigation added so it need to navigated manually
 
+**Note:** https://currencylayer.com wouldn't let me allow to use APIs end-points for free and was forcing me to upgrade to paid membership, so instead I used https://freecurrencyapi.com which allowed me to use upto 5k requests per month for free.
+
 
 # Future potential
 
