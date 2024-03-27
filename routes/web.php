@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/currencies', [CurrencyController::class, 'index'])->name('currencies.index')->middleware('auth');
 Route::post('/currencies', [CurrencyController::class, 'list'])->name('currencies.list');
 
-Route::get('/historical-rates', [HistoryRateController::class, 'index'])->name('currencies.index')->middleware('auth');
-Route::post('/historical-rates', [HistoryRateController::class, 'store'])->name('currencies.historical-rates')->middleware('auth');
+Route::get('/historical-rates', [HistoryRateController::class, 'index'])->name('historical-rates.index')->middleware('auth');
+Route::post('/historical-rates', [HistoryRateController::class, 'store'])->name('historical-rates.store')->middleware('auth');
 
 require __DIR__.'/auth.php';

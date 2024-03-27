@@ -16,7 +16,7 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        return view('index', ['currencyCodes' => CurrencyCode::getCurrencyCodes()]);
+        return view('currency', ['currencyCodes' => CurrencyCode::getCurrencyCodes()]);
     }
 
     /**
