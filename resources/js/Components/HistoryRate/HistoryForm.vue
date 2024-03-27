@@ -61,9 +61,12 @@
             };
         },
         methods: {
-            async submitForm() {
+            async submitForm(resubmission = false) {
                 if ('' === this.selectedValue) {
                     this.error = "Please select a currency to continue";
+                    return;
+                }
+                if (!resubmission) {
                     return;
                 }
                 this.error = null;
@@ -83,6 +86,7 @@
                 .catch(error => {
                     this.error = "Something went wrong while getting historical rates";
                     console.error("There was an error: ", error.response.data.message);
+                    this.clearRequestInterval();
                 });
             },
             // All methods to get batch progress
@@ -90,9 +94,9 @@
                 try {
                     const response = await axios.get('/api/batch/'+this.batchId);
                     this.progress = response.data
-                    // Batch has been completed
+                    // Batch has been completed, resubmit to get exchange rates
                     if (response.data == 100) {
-                        this.clearRequestInterval();
+                        this.clearRequestInterval(true);
                     }
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -101,16 +105,18 @@
                 }
             },
             startRequesting() {
-                this.requestInterval = setInterval(this.fetchData, 500);
+                this.requestInterval = setInterval(this.fetchData, 3000);
             },
-            clearRequestInterval() {
+            clearRequestInterval(resubmit = false) {
                 if (this.requestInterval) {
                     clearInterval(this.requestInterval);
                     this.requestInterval = null;
                     this.batchId = null;
                     console.log('Interval cleared!');
                     // Call the submit form again to get the stored values from the database
-                    this.submitForm();
+                    if (resubmit) {
+                        this.submitForm();
+                    }
                 }
             },
         },

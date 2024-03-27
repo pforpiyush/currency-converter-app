@@ -12,7 +12,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        /**
+         * A schedular that consumes the queued job batches every 15 minutes
+         * 
+         * Initially wanted to schedule just the `ConversrionHistoryRateJob()` job
+         * every fifteen minutes, but the data generation is reliant on data from
+         * request so batched the jobs and call artisan command to consume queue
+         * every fifteen minutes 
+         */
+        $schedule->command('queue:work --stop-when-empty --tries=3')
+             ->everyFifteenMinutes()
+             ->withoutOverlapping()
+             ->runInBackground();
     }
 
     /**
