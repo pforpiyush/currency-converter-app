@@ -16,6 +16,11 @@ class CurrencyCode extends Model
 
     protected $table = 'currency_codes';
 
+    protected $fillable = [
+        'name',
+        'code',
+    ];
+
     /**
      * Get list of all currency codes
      */

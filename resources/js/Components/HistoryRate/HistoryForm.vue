@@ -61,12 +61,9 @@
             };
         },
         methods: {
-            async submitForm(resubmission = false) {
+            async submitForm() {
                 if ('' === this.selectedValue) {
                     this.error = "Please select a currency to continue";
-                    return;
-                }
-                if (!resubmission) {
                     return;
                 }
                 this.error = null;
@@ -115,6 +112,7 @@
                     console.log('Interval cleared!');
                     // Call the submit form again to get the stored values from the database
                     if (resubmit) {
+                        // Avoid getting into infinite loop
                         this.submitForm();
                     }
                 }
