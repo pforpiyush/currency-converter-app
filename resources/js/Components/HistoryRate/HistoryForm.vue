@@ -1,5 +1,5 @@
 <template>
-    <div v-if="error" class="col-md-4 alert alert-danger" role="alert">
+    <div v-if="error" class="alert alert-danger alert-dismissible text-center" role="alert">
         {{ error }}
     </div>
     <div class="container">
@@ -15,7 +15,7 @@
                 <option value="EUR">EUR</option>
             </select>
         </div>
-        <div class="row m-3 col-md-4 alert alert-primary justify-content-center">{{ selectedValue ? selectedValue : "Select a currency" }}</div>
+        <div class="row m-3 alert alert-primary justify-content-center">{{ selectedValue ? selectedValue : "Select a currency" }}</div>
         <!-- Interval selection radio buttons -->
         <h3>Select period of report</h3>
         <div>

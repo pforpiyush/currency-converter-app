@@ -1,5 +1,5 @@
 <template>
-    <div v-if="currencyStore.error" class="col-md-4 alert alert-danger" role="alert">
+    <div v-if="currencyStore.error" class="alert alert-danger alert-dismissible text-center" role="alert">
         {{ currencyStore.error }}
     </div>
     <div class="span2">
