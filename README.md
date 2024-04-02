@@ -39,6 +39,7 @@ I created a basic UI and provided limited components in front-end. If the curren
 6. Compile JavaScript assets with `npm run dev`
 7. To run scheduler, use command `php artisan schedule:run`, where the queued job will be consumed every fifteen minutes. Alternatively, for immediate consuming of jobs, use `php artisan queue:work`
 8. Run the laravel app with `php artisan serve`
+9. Run unit tests with `php artisan test` which will run all unit tests (including the sample ones) or run specific test with `php artisan test --filter {ClassName_or_test_name}` to run specific tests
 
 The endpoint for the live currency rates app is `{url}/currencies` and for the conversion history rates is `{url}/historical-rates`. There is no navigation added so it need to navigated manually
 
